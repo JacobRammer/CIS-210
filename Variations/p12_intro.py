@@ -36,6 +36,10 @@ def add_digits(n):
 
     total = 0
 
+    """
+    this is a better way to accomplish task than a while loop. 
+    It will also add x number of integers together
+    """
     for i in str(n):
         total += int(i)
 
