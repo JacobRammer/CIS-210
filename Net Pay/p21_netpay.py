@@ -11,6 +11,15 @@ using the hours worked and tax deducted
 """
 
 
+def main():
+    """Net pay program driver"""
+
+    print("For 10 hours work, netpay is:", netpay(10))
+    print("For 40 hours work, netpay is:", netpay(40))
+
+    return None
+
+
 def tax(gross):
     """ (Number) -> Float
 
@@ -51,15 +60,6 @@ def netpay(hours):
     net_pay = gross_pay - tax(gross_pay)
 
     return round(net_pay, 2)
-
-
-def main():
-    """Net pay program driver"""
-
-    print("For 10 hours work, netpay is:", netpay(10))
-    print("For 40 hours work, netpay is:", netpay(40))
-
-    return None
 
 
 main()
