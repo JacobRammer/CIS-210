@@ -22,9 +22,9 @@ def mysqrt(n, k):
     Than find the average of the x1 and the quotient value and assign
     it to x1, returning the value of x1 after loop completion.
 
-    >>>mysqrt(25, 1)
+    >>> mysqrt(25, 1)
     13.0
-    >>>mysqrt(10000, 8)
+    >>> mysqrt(10000, 8)
     101.20218365353946
 
     """
@@ -51,12 +51,12 @@ def sqrt_compare(num, iterations):
     of discrepancy between the two. Returns void
 
 
-    >>>sqrt_compare(100001, 10)
+    >>> sqrt_compare(100001, 10)
     For 100001 using 10 iterations:
     mysqrt value is:  317.20448317094645
     math lib val is:  316.2293471517152
     This is a: 0.31 percent error
-    >>>sqrt_compare(100009, 11)
+    >>> sqrt_compare(100009, 11)
     For 100009 using 11 iterations:
     mysqrt value is:  316.24349564290105
     math lib val is:  316.2419959461425

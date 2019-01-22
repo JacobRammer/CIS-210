@@ -20,7 +20,7 @@ def drawFlower(numSquares):
     rotate the turtle cursor an even amount times based
     upon how many squares are to be drawn. Void function
 
-    >>>drawFlower(5)
+    >>> drawFlower(5)
     will draw a square 5 times and rotate it
 
     """
@@ -45,10 +45,10 @@ def drawPolygon(sideLength, numSides):
     to determine how many times the turtle cursor rotates to draw
     the shape of the object.
 
-    >>>drawPolygon(25, 4)
+    >>> drawPolygon(25, 4)
     will draw a square with a side length of 25
 
-    >>>drawPolygon(25, 5)
+    >>> drawPolygon(25, 5)
     will draw a pentagon with side length of 25
 
     """
