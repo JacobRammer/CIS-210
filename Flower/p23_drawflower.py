@@ -1,5 +1,3 @@
-from turtle import *
-
 """
 Drawing with Python
 CIS 210 W19 Project 2-3
@@ -11,15 +9,7 @@ Credits: [N/A]
 Use python's Turtle module to draw
 various types of graphics
 """
-
-
-def main():
-    """
-    Main function to start script by calling drawFlower()
-
-    :return: Void
-    """
-    drawFlower(25)
+from turtle import *
 
 
 def drawFlower(numSquares):
@@ -72,7 +62,16 @@ def drawPolygon(sideLength, numSides):
     return None
 
 
+def main():
+    """
+    Main function to start script by calling drawFlower()
+
+    :return: None
+    """
+    drawFlower(25)
+
+    return None
+
+
 main()
 
-
-mainloop()  # remove before submit
