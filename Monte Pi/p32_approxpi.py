@@ -36,7 +36,7 @@ def isInCircle(x, y, r):
 
 
 def montePi(numDarts):
-    """(Int) -> Constant
+    """(Int) -> Number
 
     This function will approximate the value of pi by throwing a varying amount of darts, supplied by
     the numDarts parameter. Generate random x and y coordinates by looping numDarts times. While in the loop, call
@@ -64,14 +64,14 @@ def montePi(numDarts):
     return pi
 
 
-def reportPi(numDarts, approxPi):  # is approxPi even needed?
-    """(Number, Number) -> Number, Number
+def reportPi(numDarts, approxPi):
+    """(Number, Number) -> None
 
     This function calculates how close the approximated value of pie is to the real value of pi. The function
     calculates the percentage of error between the two values and stores the value in errorVal, and is later printed.
     Returns None.
 
-    >>>(reportPi(500, 3.2))
+    >>> reportPi(500, 3.2))
     With 100 iterations:
     my approximate value for pi is: 3.1616516516516517
     math lib pi value is:  3.141592653589793
@@ -96,5 +96,18 @@ def reportPi(numDarts, approxPi):  # is approxPi even needed?
 
 
 def main():
-    montePi(255)
-    reportPi()
+    """driver for approximating pi project"""
+
+    montePi(100)
+    reportPi(100, montePi(100))
+
+    montePi(100000)
+    reportPi(100000, montePi(100000))
+
+    montePi(10000000)
+    reportPi(10000000, montePi(10000000))
+
+    return None
+
+
+main()
