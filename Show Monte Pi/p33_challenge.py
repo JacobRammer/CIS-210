@@ -1,16 +1,18 @@
-"""
-Monte Pi
-CIS 210 W19 Project 3-2
+'''
+Approximating pi.  CIS 210 W19 Project 3-3
+Starter Code for showMontePi
 
-Author: [Jacob Rammer]
+Author: Jacob Rammer
 
-Credits: [N/A]
+Credits: Based on code on p.78 Miller and Ranum text.
 
-Approximate the value of pi using the
-Monte Carlo algorithm.
-"""
-from random import random
+Approximate pi using a Monte Carlo simulation.
+Then add graphics to visualize simulation.
+'''
+
+from turtle import *
 from math import sqrt, pi
+import random
 
 
 def isInCircle(x, y, r):
@@ -35,33 +37,73 @@ def isInCircle(x, y, r):
         return False
 
 
-def montePi(numDarts):
-    """(Int) -> Number
-
-    This function will approximate the value of pi by throwing a varying amount of darts, supplied by
-    the numDarts parameter. Generate random x and y coordinates by looping numDarts times. While in the loop, call
-    function isInCircle to get boolean value and increase the number of darts that landed in the circle (inCircle)
-    by 1 if the returned value is true. After the loop is finished, pi will be approximated by dividing the number of
-    darts inCircle divided by numDarts * 4 returning the approximated value of pi.
-
-    >>> montePi(300)
-    3.16
-    >>>montePi(50000)
-    3.13784
-
-
+def drawBoard():
     """
+
+    This function hides the Turtle cursor and draws the x and y axis on a graph. Returns None.
+
+    >>> drawBoard()
+    draws x, y, axis
+    """
+
+    speed(0)
+    hideturtle()
+    penup()
+
+    goto(-1, 0)  # draw graph axis
+    pendown()
+    goto(1, 0)
+    penup()
+    goto(0, 1)
+    pendown()
+    goto(0, -1)
+    penup()
+    goto(0, -1)
+
+    return None
+
+
+def showMontePi(numDarts, draw=False):
+    '''
+    DOCSTRING written according to
+    210 style guidelines goes here
+    '''
+
+    if draw:
+        wn = Screen()
+        wn.setworldcoordinates(-2, -2, 2, 2)
+
+        drawBoard()
+
+    # pen should stay up for drawing darts
+
     inCircle = 0
 
+    # throw the darts and check whether
+    # they landed on the dart board and
+    # keep count of those that do
+
     for i in range(numDarts):
-        x = random()
-        y = random()
+        x = random.random()
+        y = random.random()
 
         if isInCircle(x, y, 1):
             inCircle += 1
+        if draw:
+            if isInCircle(x, y, 1):
+                color('blue')
+            else:
+                color('red')
+            goto(x, y)
+            dot()
 
-    pi = inCircle / numDarts * 4
-    return pi
+    # calculate approximate pi
+    approxPi = inCircle / numDarts * 4
+
+    if draw:
+        exitonclick()
+
+    return approxPi
 
 
 def reportPi(numDarts, approxPi):
@@ -98,16 +140,9 @@ def reportPi(numDarts, approxPi):
 
 
 def main():
-    """driver for approximating pi project"""
+    """driver for show Monte Pi project"""
 
-    montePi(100)
-    reportPi(100, montePi(100))
-
-    montePi(100000)
-    reportPi(100000, montePi(100000))
-
-    montePi(10000000)
-    reportPi(10000000, montePi(10000000))
+    reportPi(100, showMontePi(100))
 
     return None
 
