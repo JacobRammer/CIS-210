@@ -64,17 +64,30 @@ def drawBoard():
 
 
 def showMontePi(numDarts):
-    '''
-    DOCSTRING written according to
-    210 style guidelines goes here
+    '''(Int) -> Number
+
+        This function will approximate the value of pi by throwing a varying amount of darts, supplied by
+    the numDarts parameter. Generate random x and y coordinates by looping numDarts times. While in the loop, call
+    function isInCircle to get boolean value and increase the number of darts that landed in the circle (inCircle)
+    by 1 if the returned value is true. After the loop is finished, pi will be approximated by dividing the number of
+    darts inCircle divided by numDarts * 4 returning the approximated value of pi. This function also draws dots on a
+    dart board using the randomly generated coordinates, coloring them blue for landing on the board, and red for
+    outside of the circle.
+
+    Note: Due to randomly generated x,y values, exact results are not replicable.
+
+    >>> showMontePi(250)
+   3.04
+   >>> showMontePi(100)
+   3.16
+
+
     '''
 
     wn = Screen()
     wn.setworldcoordinates(-2, -2, 2, 2)
 
     drawBoard()
-
-    # pen should stay up for drawing darts
 
     inCircle = 0
 
@@ -123,7 +136,6 @@ def reportPi(numDarts, approxPi):
     my approximate value for pi is: 3.1616516516516517
     math lib pi value is:  3.141592653589793
     This is a 1.02 percent error.
-
 
     """
 

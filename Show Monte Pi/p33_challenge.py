@@ -64,12 +64,30 @@ def drawBoard():
 
 
 def showMontePi(numDarts, draw=False):
-    '''
-    DOCSTRING written according to
-    210 style guidelines goes here
+    '''(Int) -> Number
+
+        This function will approximate the value of pi by throwing a varying amount of darts, supplied by
+    the numDarts parameter. Generate random x and y coordinates by looping numDarts times. While in the loop, call
+    function isInCircle to get boolean value and increase the number of darts that landed in the circle (inCircle)
+    by 1 if the returned value is true. After the loop is finished, pi will be approximated by dividing the number of
+    darts inCircle divided by numDarts * 4 returning the approximated value of pi. This function also draws dots on a
+    dart board using the randomly generated coordinates, coloring them blue for landing on the board, and red for
+    outside of the circle. Can also choose not to have the Turtle window open upon execution, or have the window open
+    by supplying the True argument in the function call.
+
+    Note: Due to randomly generated x,y values, exact results are not replicable.
+
+
+    >>> showMontePi(250)
+   3.04
+   >>> showMontePi(100, True)
+   3.16
+   and will open turtle window and draw the simulation
+
+
     '''
 
-    if draw:
+    if draw:  # if True is passed
         wn = Screen()
         wn.setworldcoordinates(-2, -2, 2, 2)
 
@@ -89,7 +107,7 @@ def showMontePi(numDarts, draw=False):
 
         if isInCircle(x, y, 1):
             inCircle += 1
-        if draw:
+        if draw:  # if True is passed
             if isInCircle(x, y, 1):
                 color('blue')
             else:
@@ -100,7 +118,7 @@ def showMontePi(numDarts, draw=False):
     # calculate approximate pi
     approxPi = inCircle / numDarts * 4
 
-    if draw:
+    if draw:  # if True is passed
         exitonclick()
 
     return approxPi

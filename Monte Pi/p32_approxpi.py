@@ -44,6 +44,9 @@ def montePi(numDarts):
     by 1 if the returned value is true. After the loop is finished, pi will be approximated by dividing the number of
     darts inCircle divided by numDarts * 4 returning the approximated value of pi.
 
+    Note: Due to randomly generated x,y values, exact results are not replicable.
+
+
     >>> montePi(300)
     3.16
     >>>montePi(50000)
@@ -100,13 +103,10 @@ def reportPi(numDarts, approxPi):
 def main():
     """driver for approximating pi project"""
 
-    montePi(100)
     reportPi(100, montePi(100))
 
-    montePi(100000)
     reportPi(100000, montePi(100000))
 
-    montePi(10000000)
     reportPi(10000000, montePi(10000000))
 
     return None
