@@ -84,8 +84,6 @@ def checkTone(tone):
     True
 
     """
-    # constants = tone[::2]
-    # vowels = tone[1::2]
 
     constants = findConst(tone)
     vowels = findVowel(tone)
@@ -113,8 +111,7 @@ def alphapinDecode(tone):
     if checkTone(tone):
         decodedPin = 0
 
-        # constants = tone[::2]
-        # vowels = tone[1::2]
+
         constants = findConst(tone)
         vowels = findVowel(tone)
 
