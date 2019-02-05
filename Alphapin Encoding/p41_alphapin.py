@@ -87,6 +87,10 @@ def checkTone(tone):
 
     constants = findConst(tone)
     vowels = findVowel(tone)
+
+    if len(tone) == 0:
+        return False
+
     for c, v in zip(constants, vowels):
         if c in CONSONANTS and v in VOWELS:
             pass
@@ -110,7 +114,6 @@ def alphapinDecode(tone):
 
     if checkTone(tone):
         decodedPin = 0
-
 
         constants = findConst(tone)
         vowels = findVowel(tone)
