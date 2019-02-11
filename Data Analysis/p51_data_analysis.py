@@ -8,16 +8,19 @@ Credits: [N/A]
 
 Data analysis using lists and dictionaries
 """
+import doctest
 
 
 def isEven(n):
     """(int) -> bool
 
-    Check to see if the length of a list is even. Return True if even, false if odd.
+    Check to see if the length of a list (n) is even. Return True if even, false if odd.
 
     >>> isEven(100)  # simple
     True
-    >>> isEven(len([5]))  # edge
+    >>> isEven(len([5]))  # different input
+    False
+    >>> isEven(1)  # edge - 1
     False
 
     """
@@ -31,13 +34,13 @@ def isEven(n):
 def genFrequencyTable(alist):
     """(list) dict.
 
-    This function iterates over every item in alist and adds them to a dictionary as a key if it is their first
-    occurrence. If the item is already a key in countDict, add one to the occurrence count (which starts at 1). Return
-    the dictionary.
+    This function iterates over every item in alist and adds them to a dictionary as a key (countDict) if it is their
+    first occurrence. If the item is already a key in countDict, add one to the occurrence count (which starts at 1).
+    Return the dictionary.
 
     >>> genFrequencyTable([13, 18, 13, 14, 13, 16, 14, 21, 13])  # simple
     {13: 4, 18: 1, 14: 2, 16: 1, 21: 1}
-    >>> genFrequencyTable([0])
+    >>> genFrequencyTable([0])  # edge
     {0: 1}
 
     """
@@ -61,7 +64,7 @@ def mean(alist):
     2.5
     >>> mean([13, 18, 13, 14, 13, 16, 14, 21, 13])  # simple
     15.0
-    >>> mean([0, 0, 0, 0, 0, 0])  # edge
+    >>> mean([0])  # edge - 0
     0.0
 
     """
@@ -71,14 +74,14 @@ def mean(alist):
 
 
 def median(alist):
-    """(list) -> Number
+    """(list) -> Float
 
-    Find the media of a list. Call isEven to check to see if the length of the list is even, and execute to function
+    Find the median of alist. Call isEven to check to see if the length of the list is even, and execute to function
     based on the returned value. Return the median of the list.
 
     >>> median([13, 18, 13, 14, 13, 16, 14, 21, 13])  # simple
     14
-    >>> median([0])  # edge
+    >>> median([0])  # edge - 0
     0
 
     """
@@ -106,9 +109,10 @@ def mode(alist):
 
     >>> mode ([13, 18, 13, 14, 13, 16, 14, 21, 13])  # simple
     [13]
-    >>> mode([0, 1, 2, 3, 4])  # edge (no repeats)
+    >>> mode([0, 1, 2, 3, 4])  # simple
     []
-
+    >>> mode([1])  # edge - 1
+    []
 
     """
 
@@ -137,7 +141,7 @@ def frequencyTable(alist):
     2       1
     3       1
     4       1
-    > frequencyTable([1])  # edge
+    > frequencyTable([1])  # edge - 1
     ITEM    FREQUENCY
     1       1
 
@@ -187,9 +191,10 @@ def main():
                2.5, 5.1, 3.3, 2.5, 4.7, 2.5, 4.1,
                3.1, 4.6, 2.8, 3.1, 6.3]
     frequencyTable(equakes)
-    print(mean(equakes))
-    print(median(equakes))
-    print(mode(equakes))
+    print("Mean:", (mean(equakes)))
+    print("Median:", (median(equakes)))
+    print("Mode:", (mode(equakes)))
 
 
 main()
+# print(doctest.testmod())
