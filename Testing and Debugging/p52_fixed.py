@@ -149,7 +149,7 @@ def countSeqBug(alist):
             dup_ct = 1
 
     """
-    This function is so hard to follow. 
+    This function is so hard to follow. I'd rewrite it if I could. 
     This is a band-aid fix that will work to receive expected results. 
     What this is essentially doing is checking if the high_ct is greater than 1 and the length is greater than 1. 
     If the alsit's len is 
