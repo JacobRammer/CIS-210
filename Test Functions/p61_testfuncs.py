@@ -87,7 +87,7 @@ def checkTone(tone):
     >>> checkTone('z')
     False
     '''
-    if tone == '':
+    if tone == '' or len(tone) == 1:
         return False
 
     cons_letters = vowel_letters = ''
@@ -130,7 +130,7 @@ def checkTone2(tone):
     >>> checkTone2('z')
     False
     '''
-    if tone == '':
+    if tone == '' or len(tone) == 1:
         return False
 
     cons_letters = tone[0:len(tone):2]
@@ -276,14 +276,60 @@ def alphapinDecode2(tone):
 
 
 def test_decode(f):
+    testCases = (
+        ('lo', 43),
+        ('hi', 27),
+        ('bomelela', 3464140),
+        ('bomeluco', 3464408),
+        ('', -1),
+        ('abcd', -1),
+        ('diju', 1234),
+        ('dijuce', 123465),
+    )
+
+    for i, o in testCases:
+        if checkTone(i) and alphapinEncode(o) == i:
+            if f(i) == o:
+                print("Checking", f.__name__, "('" + i + "')...", end='')
+                print("The value", o, "is correct!\n")
+        elif not checkTone(i):
+            print("Checking", f.__name__, "('" + i + "')...", end='')
+            if f(i) == o:
+                print("The value", o, "is correct!\n")
+        else:
+            print("Checking", f.__name__, "('" + i + "')...", end='')
+            print("The value", o, "is incorrect!\n")
 
     return None
+
+
+test_decode(alphapinDecode)
 
 
 def test_checkTone(f):
 
+    testCases = (
+        ('lohi', True),
+        ('hajeku', True),
+        ('olih', False),
+        ('', False),
+        ('z', False),
+        ('zz', False),
+        ('ddpe', True)
+    )
+
+    for i, o in testCases:
+        if f(i) == o:
+            # print("Checking", f.__name__, "('" + i + "')...", end='')
+            # print("The value", o, "is correct!\n")
+            pass
+        else:
+            print("Checking", f.__name__, "('" + i + "')...", end='')
+            print("The value", o, "is incorrect!\n")
+
     return None
 
+# test_checkTone(checkTone)
 
 def main():
     '''driver for alphapin encode/decode'''
@@ -296,9 +342,9 @@ def main():
     print(alphapinDecode(code))  # or alphapinDecode2
     return None
 
+# if __name__ == '__main__':
+#     main()
 
-if __name__ == '__main__':
-    main()
 
 # print(doctest.testmod())
 
