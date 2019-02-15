@@ -1,5 +1,5 @@
 def greeting(f, s):
-    print("Caling",f.__name__ )
+    print("Caling", f.__name__ )
     f(s)
 
     return None
@@ -17,7 +17,7 @@ def hello(s):
     return None
 
 
-# greeting(hello, "World")
+greeting(hello, "World")
 # greeting(ciao, "earth")
 
 days = ["Mo", "Tu", "We", "Tu"]
@@ -49,7 +49,7 @@ def createTempD(daysL=days, tempsL = temps):
     return dd
 
 
-print(createTempD())
+# print(createTempD())
 
 
 def my_in(li, i):
@@ -62,4 +62,4 @@ def my_in(li, i):
 
 derp = ["a", "b"]
 
-print(my_in(derp, "a"))
+# print(my_in(derp, "a"))
