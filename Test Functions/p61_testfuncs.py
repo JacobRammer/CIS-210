@@ -14,13 +14,22 @@ import p41_alphapin_key as ps4
 def test_decode(f):
     """(function) -> None
 
-    There are three test cases for this function. Case 1 is executed if test input matches up with test output.
-    Since checkTone has a side effect print statement, it has it own test case, so the output matches up with the
-    project specifications. Case 3 is if test case input / output does not match and prints expected output. Since there
-    are two functions that do the same thing, wrote if statements to check the name of the function and execute
+    This function tests the results outputted from either alphapinDecode or alphapinDecode2 functions.
+    There are three test cases for this function. Case 1 is executed if test input matches up with test output from
+    testCases Since checkTone has a side effect print statement, it has it own test case, so the output matches up with
+    the project specifications. Case 3 is if test case input / output does not match and prints expected output. Since
+    there are two functions that do the same thing, wrote if statements to check the name of the function and execute
     accordingly. Successfully implemented challenge by commenting out print statements and adding pass to if statements.
+    Left commented prints just in case. Returns none.
 
-    >>> test_decode(ps4.checkTone)
+    Only applicable test case for function. NOTE: if TestCases changes, doctest may fail
+
+    >>> test_decode(ps4.alphapinDecode) #doctest: +NORMALIZE_WHITESPACE
+    Checking alphapinDecode ('bomelela')...The value 34641400 is incorrect! Expected 3464140
+    <BLANKLINE>
+    Checking alphapinDecode ('dijucee')...Tone is not in correct format.
+    The value 123465 is incorrect! Expected -1
+    <BLANKLINE>
 
     """
     testCases = (
@@ -74,6 +83,23 @@ def test_decode(f):
 
 
 def test_checkTone(f):
+    """(function) -> None
+
+    This function tests the results outputted from either checkTone or checkTone2 functions.
+    If expected results are received, nothing is printed and loop moved onto next function. Per the project challenge.
+    If expected output or input from testCases is wrong, print expected results. Since there are two checkTone
+    functions, check the name of the function to properly test results. Left commented prints just in case.
+    Returns none.
+
+    Only applicable test case for function. NOTE: if TestCases changes, doctest may fail
+
+    >>> test_decode(ps4.alphapinDecode) #doctest: +NORMALIZE_WHITESPACE
+    Checking alphapinDecode ('bomelela')...The value 34641400 is incorrect! Expected 3464140
+    <BLANKLINE>
+    Checking alphapinDecode ('dijucee')...Tone is not in correct format.
+    The value 123465 is incorrect! Expected -1
+    <BLANKLINE>
+    """
     testCases = (
         ('lohi', True),
         ('hajeku', True),
@@ -81,40 +107,43 @@ def test_checkTone(f):
         ('', False),
         ('z', False),
         ('zz', False),
-        ('ddpe', True)
+        ('ddpe', True)  # added
     )
 
-    if f.__name__ == "checkTone":
+    if f.__name__ == "checkTone":  # since there are two checkTone functions
         for i, o in testCases:
-            if ps4.checkTone(i):  # case 1
+            if ps4.checkTone(i) == o:  # case 1
+                # print("Checking", f.__name__, "('" + i + "')...", end='')
+                # print("The value", o, "is correct!\n")
+                pass
+
+            else:  # case 2
                 print("Checking", f.__name__, "('" + i + "')...", end='')
-                print("The value", o, "is correct!\n")
-                # pass
+                print("The value", o, "is incorrect!", "Expected", ps4.checkTone(i), "\n")
 
-            elif ps4.checkTone(i) == o:  # case 2
-                print("Checking", f.__name__, "('" + i + "')...", end='')
-                print("The value", o, "is correct!\n")
-
-            else:  # case 3
-                print("('" + i + "')...", end='')
-                print("The value", o, "is incorrect!\n")
-
-    elif f.__name__ == "checkTone2":
+    elif f.__name__ == "checkTone2":  # since there are two checkTone functions
         for i, o in testCases:
-            if ps4.checkTone(i):  # case 1
-                print("Checking", f.__name__, "('" + i + "')...", end='')
-                print("The value", o, "is correct!\n")
-                # pass
+            if ps4.checkTone(i) == o:  # case 1
+                # print("Checking", f.__name__, "('" + i + "')...", end='')
+                # print("The value", o, "is correct!\n")
+                pass
 
-            elif ps4.checkTone(i) == o:  # case 2
+            else:
                 print("Checking", f.__name__, "('" + i + "')...", end='')
-                print("The value", o, "is correct!\n")
-
-            else:  # case 3
-                print("('" + i + "')...", end='')
-                print("The value", o, "is incorrect!\n")
+                print("The value", o, "is incorrect!", "Expected", ps4.checkTone2(i), "\n")
 
     return None
 
 
-test_checkTone(ps4.checkTone)
+# test_checkTone(ps4.checkTone2)
+
+def main():
+    """Program driver"""
+
+    test_decode(ps4.alphapinDecode)
+    test_decode(ps4.alphapinDecode2)
+    test_checkTone(ps4.checkTone)
+    test_checkTone(ps4.checkTone2)
+
+
+main()
