@@ -1,6 +1,6 @@
 """
 Alphapin test functions
-CIS 210 W19 Project #
+CIS 210 W19 Project 6-1
 
 Author: [Jacob Rammer]
 
@@ -46,12 +46,12 @@ def test_decode(f):
 
     if f.__name__ == "alphapinDecode":  # since there are two decode functions
         for i, o in testCases:
-            if p41.checkTone(i) and p41.alphapinEncode(o) == i:  # case 1
+            if p41.alphapinEncode(o) == i:  # case 1
                 # print("Checking", f.__name__, "('" + i + "')...", end='')
                 # print("The value", o, "is correct!\n")
                 pass
 
-            elif not p41.checkTone(i) and not p41.alphapinEncode(o):  # case 2
+            elif not p41.alphapinEncode(o):  # case 2
                 # print("Checking", f.__name__, "('" + i + "')...", end='')
                 # print("The value", o, "is correct!\n")
                 pass
@@ -62,12 +62,12 @@ def test_decode(f):
 
     elif f.__name__ == "alphapinDecode2":  # since there are two decode functions
         for i, o in testCases:
-            if p41.checkTone(i) and p41.alphapinEncode(o) == i:  # case 1
+            if p41.alphapinEncode(o) == i:  # case 1
                 # print("Checking", f.__name__, "('" + i + "')...", end='')
                 # print("The value", o, "is correct!\n")
                 pass
 
-            elif not p41.checkTone(i) and not p41.alphapinEncode(o):  # case 2
+            elif not p41.alphapinEncode(o):  # case 2
                 # print("Checking", f.__name__, "('" + i + "')...", end='')
                 # print("The value", o, "is correct!\n")
                 pass
@@ -96,6 +96,7 @@ def test_checkTone(f):
     Checking alphapinDecode ('dijucee')...Tone is not in correct format.
     The value 123465 is incorrect! Expected -1
     <BLANKLINE>
+
     """
     testCases = (
         ('lohi', True),
@@ -108,7 +109,7 @@ def test_checkTone(f):
     )
 
     if f.__name__ == "checkTone":  # since there are two checkTone functions
-        for i, o in testCases:
+        for i, o in testCases:  # case 1
             if p41.checkTone(i) == o:  # case 1
                 # print("Checking", f.__name__, "('" + i + "')...", end='')
                 # print("The value", o, "is correct!\n")
@@ -119,13 +120,13 @@ def test_checkTone(f):
                 print("The value", o, "is incorrect!", "Expected", p41.checkTone(i), "\n")
 
     elif f.__name__ == "checkTone2":  # since there are two checkTone functions
-        for i, o in testCases:
+        for i, o in testCases:  # case 1
             if p41.checkTone(i) == o:  # case 1
                 # print("Checking", f.__name__, "('" + i + "')...", end='')
                 # print("The value", o, "is correct!\n")
                 pass
 
-            else:
+            else:  # case 2
                 print("Checking", f.__name__, "('" + i + "')...", end='')
                 print("The value", o, "is incorrect!", "Expected", p41.checkTone2(i), "\n")
 
