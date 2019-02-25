@@ -28,7 +28,7 @@ def majors_readf(fname):
     Architects
     Breaking Benjamin
 
-    # doctests will not work
+    doctests will not work
 
     > majors_readf("i_am_a_file.txt")
     ["cis", "math"]
@@ -50,7 +50,7 @@ def majors_readf(fname):
     return majors_list
 
 
-def majors_analysis(majorsli=majors_readf("majors_cis210w19.txt")):
+def majors_analysis(majorsli):
     """(list) -> list, int
 
     Create a dictionary from each line of a text file. If the line is already in the dictionary as a key, add 1 to
@@ -58,8 +58,8 @@ def majors_analysis(majorsli=majors_readf("majors_cis210w19.txt")):
     if keys have same values. Give parameter default argument so I don't have to keep typing it.
     Returns the major with most occurrences and length of majors_dict (only counting majors once).
 
-    >>> majors_analysis()
-    (['CIS'], 23)
+    >>> majors_analysis(["cis", "math", "sci", "cis"])
+    (['cis'], 3)
 
     >>> majors_analysis(["cis", "cis", "math"])
     (['cis'], 2)
@@ -85,11 +85,15 @@ def majors_report(majors_mode, majors_ct, majorsli):
     Print the report of the analysis of majors. Check to see if arguments are passed to the function, if not
     use the return value tuple from majors_analysis. Calls frequencyTable to print table. Returns None
 
-    >>> majors_report(["cis", "idk"], 2, ["cis", "cis", "idk", "idk"])
+    >>> majors_report(["cis", "idk"], 2, ["cis", "cis", "idk", "idk"]) #doctest: +NORMALIZE_WHITESPACE
         2 majors are represented in CIS 210 this term.
         The most represented major(s): cis idk
+        <BLANKLINE>
+        ITEM FREQUENCY
+        cis     2
+        idk     2
 
-        >>> majors_report(['CIS', 'EXPL'], 3, ['CIS', 'CIS', 'EXPL','COLT', 'EXPL'])
+        >>> majors_report(['CIS', 'EXPL'], 3, ['CIS', 'CIS', 'EXPL','COLT', 'EXPL']) #doctest: +NORMALIZE_WHITESPACE
         3 majors are represented in CIS 210 this term.
         The most represented major(s): CIS EXPL
         <BLANKLINE>
