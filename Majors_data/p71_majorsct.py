@@ -183,5 +183,5 @@ def main():
     majors_report(majors_mode, majors_ct, majorsli)  # report
     return None
 
+
 main()
-# print(majors_analysis())
