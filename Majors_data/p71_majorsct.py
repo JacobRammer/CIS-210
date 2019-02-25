@@ -8,6 +8,7 @@ Credits: [N/A]
 
 Analyze the different majors in CIS 210
 """
+import p51_data_analysis as p51
 
 
 def majors_readf(fname):
@@ -87,10 +88,6 @@ def majors_report(majors_mode, majors_ct, majorsli):
     >>> majors_report(["cis", "idk"], 2, ["cis", "cis", "idk", "idk"])
         2 majors are represented in CIS 210 this term.
         The most represented major(s): cis idk
-        <BLANKLINE>
-        ITEM FREQUENCY
-        cis     2
-        idk     2
 
         >>> majors_report(['CIS', 'EXPL'], 3, ['CIS', 'CIS', 'EXPL','COLT', 'EXPL'])
         3 majors are represented in CIS 210 this term.
@@ -111,61 +108,7 @@ def majors_report(majors_mode, majors_ct, majorsli):
 
     print("\n")
 
-    majorsli_v2 = frequencyTable(majorsli)
-
-    return None
-
-
-def genFrequencyTable(alist):
-    """(list) dict.
-
-    This function iterates over every item in alist and adds them to a dictionary as a key (countDict) if it is their
-    first occurrence. If the item is already a key in countDict, add one to the occurrence count (which starts at 1).
-    Return the dictionary.
-
-    >>> genFrequencyTable([13, 18, 13, 14, 13, 16, 14, 21, 13])  # simple
-    {13: 4, 18: 1, 14: 2, 16: 1, 21: 1}
-    >>> genFrequencyTable([0])  # edge
-    {0: 1}
-
-    """
-    countDict = {}
-
-    for item in alist:
-        if item in countDict:
-            countDict[item] = countDict[item] + 1
-        else:
-            countDict[item] = 1
-
-    return countDict
-
-
-def frequencyTable(alist):
-    """(list) -> None
-
-    Given a list, this function will find the total number of occurrences of each item in the list. Returns none.
-
-    > frequencyTable([1, 2, 3, 4])  # simple
-    ITEM    FREQUENCY
-    1       1
-    2       1
-    3       1
-    4       1
-    > frequencyTable([1])  # edge - 1
-    ITEM    FREQUENCY
-    1       1
-
-    """
-
-    countDict = genFrequencyTable(alist)
-
-    itemlist = list(countDict.keys())
-    itemlist.sort()
-
-    print("ITEM", "FREQUENCY")
-
-    for item in itemlist:
-        print(item.ljust(7), countDict[item])
+    p51.frequencyTable(majorsli)
 
     return None
 

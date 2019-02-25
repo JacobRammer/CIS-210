@@ -116,18 +116,21 @@ def mode(alist):
 
     """
 
-    countDict = genFrequencyTable(alist)
+    countd = genFrequencyTable(alist)
 
-    countlist = countDict.values()
-    maxcount = max(countlist)
+    countli = countd.values()
+    maxct = max(countli)
 
-    modelist = []
+    # there may be more than one mode
+    modeli = []
+    for k in countd:
+        if countd[k] == maxct:
+            modeli.append(k)
 
-    for item in countDict:
-        if countDict[item] == maxcount and countDict[item] > 1:
-            modelist.append(item)
+    # better - use a list comprehension
+    # modeli = [k for k in countd if countd[k] == maxct]
 
-    return modelist
+    return modeli
 
 
 def frequencyTable(alist):
@@ -155,7 +158,7 @@ def frequencyTable(alist):
     print("ITEM", "FREQUENCY")
 
     for item in itemlist:
-        print(item, "   ", countDict[item])
+        print(str(item).ljust(7), countDict[item])
 
     return None
 
@@ -196,5 +199,5 @@ def main():
     print("Mode:", (mode(equakes)))
 
 
-main()
-# print(doctest.testmod())
+if __name__ == '__main__':
+    main()
