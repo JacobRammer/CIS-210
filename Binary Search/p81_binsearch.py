@@ -1,3 +1,15 @@
+"""
+Binary Search
+CIS 210 W19 Project 8-1
+
+Author: [Jacob Rammer]
+
+Credits: [N/A]
+
+Search a sequence using binary search
+"""
+
+
 def isMember(aseq, target):
 
     if type(aseq) == list:
