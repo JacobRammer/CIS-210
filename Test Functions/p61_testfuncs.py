@@ -46,7 +46,7 @@ def test_decode(f):
 
     if f.__name__ == "alphapinDecode":  # since there are two decode functions
         for i, o in testCases:
-            if p41.alphapinEncode(o) == i:  # case 1
+            if p41.alphapinDecode(o) == i:  # case 1
                 # print("Checking", f.__name__, "('" + i + "')...", end='')
                 # print("The value", o, "is correct!\n")
                 pass
