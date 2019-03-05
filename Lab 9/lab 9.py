@@ -35,8 +35,8 @@ def isPal(s):
     elif len(s) == 0:
         return False
     q = s[0] == s[-1]
-    c = isPal(s[1:-1]) == q
+    c = isPal(s[1:-1])
     return q and c
 
 
-print(isPal(""))
+print(isPal("kayak"))
