@@ -120,29 +120,34 @@ def visaulizeQuakes(dataFile, k=6, r=7):  # using values from book
 
     quakeT = turtle.Turtle()
     quakeWin = turtle.Screen()
-    quakeWin.bgpic("test.gif")
-    quakeWin.screensize(448, 266)
+    quakeWin.bgpic("worldmap1800_900.gif")
+    quakeWin.screensize(1800, 900)
 
     wFactor = (quakeWin.screensize()[0] / 2) / 180
-    hFactor = (quakeWin.screensize()[0] / 2) / 90
+    hFactor = (quakeWin.screensize()[1] / 2) / 90
 
     quakeT.hideturtle()
     quakeT.up()
 
-    colorlist = ["red", "green", "blue", "orange", "cyan", "yellow"]
+    turtle_color_r = random.random()
+    turtle_color_g = random.random()
+    turtle_color_b = random.random()
+
+    colorlist = ["red", "black", "blue", "orange", "cyan", "yellow"]
 
     for clusterIndex in range(k):
         quakeT.color(colorlist[clusterIndex])
         for akey in clusters[clusterIndex]:
             lon = datadict[akey][0]
-            print("lat", lon)
+            print("lon", lon)
             lat = datadict[akey][1]
-            print("lon", lat)
+            print("lat", lat)
             quakeT.goto(lon*wFactor, lat * hFactor)
             quakeT.dot()
     #
     quakeWin.exitonclick()
 
     return None
+
 
 visaulizeQuakes("Demo.txt")
