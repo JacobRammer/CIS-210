@@ -11,17 +11,33 @@ Graphing earthquakes with turtle graphics
 from math import sqrt
 import random
 from turtle import *
+import turtle
 
 
-def readFile(fileName="earthquakes.csv"):
+def readFile(fileName="Demo.txt"):
     """(str) -> dict"""
 
+    # datadict = {}
+    #
+    # with open("earthquakes.csv") as equake_date:
+    #     equake_date.readline()
+
+    datafile = open(fileName, "r")
     datadict = {}
 
-    with open("earthquakes.csv") as equake_date:
-        equake_date.readline()
+    key = 0
 
+    for aline in datafile:
+        items = aline.split()
+        key = key + 1
+        lat = float(items[3])
+        lon = float(items[4])
 
+        datadict[key] = [lon, lat]
+
+    return datadict
+
+# readFile()
 
 
 def euclidD(point1, point2):
@@ -29,7 +45,7 @@ def euclidD(point1, point2):
     total = 0
 
     for index in range(len(point1)):
-        diff = (point1[index] - point2[index] ** 2)
+        diff = (point1[index] - point2[index]) ** 2
         total = total + diff
 
     euclidDistance = sqrt(total)
@@ -50,59 +66,61 @@ def createCentroids(k, datadict):
             centroidKeys.append(rkey)
             centroidCount = centroidCount + 1
 
+    return centroids
+
 
 def createClusters(k, centroids, datadict, repeats):
 
     for apass in range(repeats):
-        print("****PASS", apass, "****")
+        print("**** PASS", apass, "****")
         clusters = []
         for i in range(k):
             clusters.append([])
 
-            for akey in datadict:
-                distances = []
-                for clusterIndex in range(k):
-                    dist = euclidD(datadict[akey], centroids[clusterIndex])
-                    distances.append(dist)
+        for akey in datadict:
+            distances = []
+            for clusterIndex in range(k):
+                dist = euclidD(datadict[akey], centroids[clusterIndex])
+                distances.append(dist)
 
-                    mindist = min(distances)
-                    index = distances.index(mindist)
+            mindist = min(distances)
+            index = distances.index(mindist)
 
-                    clusters[index].append(akey)
+            clusters[index].append(akey)
 
-                dimensions = len(datadict[1])
-                for clusterIndex in range(k):
-                    sums = [0] * dimensions
-                    for akey in clusters[clusterIndex]:
-                        datapoints = datadict[akey]
-                        for ind in range(len(datapoints)):
-                            sums[ind] = sums[ind] + datapoints[ind]
+        dimensions = len(datadict[1])
+        for clusterIndex in range(k):
+                sums = [0] * dimensions
+                for akey in clusters[clusterIndex]:
+                    datapoints = datadict[akey]
+                    for ind in range(len(datapoints)):
+                        sums[ind] = sums[ind] + datapoints[ind]
 
-                    for ind in range(len(sums)):
-                        clusterLen = len(clusters[clusterIndex])
-                        if clusterLen != 0:
-                            sums[ind] = sums[ind] / clusterLen
+                for ind in range(len(sums)):
+                    clusterLen = len(clusters[clusterIndex])
+                    if clusterLen != 0:
+                        sums[ind] = sums[ind] / clusterLen
 
-                        centroids[clusterIndex] = sums
+                centroids[clusterIndex] = sums
 
-                for c in clusters:
-                    print("CLUSTER")
-                    for key in c:
-                        print(datadict[key], end=" ")
-                        print()
+        for c in clusters:
+            print("CLUSTER")
+            for key in c:
+                    print(datadict[key], end=" ")
+            print()
 
         return clusters
 
 
-def visaulizeQuakes(dataFile, k=6, r=7):
+def visaulizeQuakes(dataFile, k=6, r=7):  # using values from book
 
     datadict = readFile(dataFile)
-    quakeCentroids = createCentroids(6, datadict)
+    quakeCentroids = createCentroids(k, datadict)
     clusters = createClusters(k, quakeCentroids, datadict, r)
 
-    quakeT = Turtle()
-    quakeWin = Screen()
-    quakeWin.bgpic("worldmap1800_900.gif")
+    quakeT = turtle.Turtle()
+    quakeWin = turtle.Screen()
+    quakeWin.bgpic("test.gif")
     quakeWin.screensize(448, 266)
 
     wFactor = (quakeWin.screensize()[0] / 2) / 180
@@ -113,16 +131,18 @@ def visaulizeQuakes(dataFile, k=6, r=7):
 
     colorlist = ["red", "green", "blue", "orange", "cyan", "yellow"]
 
-    for clusterIndex in range(6):
+    for clusterIndex in range(k):
         quakeT.color(colorlist[clusterIndex])
         for akey in clusters[clusterIndex]:
             lon = datadict[akey][0]
+            print("lat", lon)
             lat = datadict[akey][1]
+            print("lon", lat)
             quakeT.goto(lon*wFactor, lat * hFactor)
             quakeT.dot()
-
+    #
     quakeWin.exitonclick()
 
     return None
 
-visaulizeQuakes("earthquakes.csv")
+visaulizeQuakes("Demo.txt")
