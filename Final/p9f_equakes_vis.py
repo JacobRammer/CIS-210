@@ -1,6 +1,6 @@
 """
 Earthquake Watch
-CIS 210 W19 Project #
+CIS 210 W19 Project 9-1
 
 Author: [Jacob Rammer]
 
@@ -9,36 +9,28 @@ Credits: [N/A]
 Graphing earthquakes with turtle graphics
 """
 from math import sqrt
-import random
-from turtle import *
+from random import randint
 import turtle
 
 
-def readFile(fileName="Demo.txt"):
+def readFile(fileName="earthquakes.csv"):  # TODO change for class file
     """(str) -> dict"""
 
-    # datadict = {}
-    #
-    # with open("earthquakes.csv") as equake_date:
-    #     equake_date.readline()
-
-    datafile = open(fileName, "r")
     datadict = {}
-
     key = 0
 
-    for aline in datafile:
-        items = aline.split()
-        key = key + 1
-        lat = float(items[3])
-        lon = float(items[4])
+    with open(fileName) as equake_date:
+        equake_date.readline()
 
-        datadict[key] = [lon, lat]
+        for line in equake_date:
+            key += 1
+            lat = line.split(",")[1]
+            lon = line.split(",")[2]
+            datadict[key] = [float(lon), float(lat)]
 
     return datadict
 
-# readFile()
-
+# print(readFile("earthquakes.csv"))
 
 def euclidD(point1, point2):
 
@@ -60,7 +52,7 @@ def createCentroids(k, datadict):
     centroidKeys = []
 
     while centroidCount < k:
-        rkey = random.randint(1, len(datadict))
+        rkey = randint(1, len(datadict))
         if rkey not in centroidKeys:
             centroids.append(datadict[rkey])
             centroidKeys.append(rkey)
@@ -112,13 +104,40 @@ def createClusters(k, centroids, datadict, repeats):
         return clusters
 
 
-def visaulizeQuakes(dataFile, k=6, r=7):  # using values from book
+def change_turtle_color():
+    """() -> tuple
+
+    Generate random color decimal codes for turtle plotting. Returns the RGB decimal code tuple.
+
+    > change_turtle_color()
+    (100, 150, 255)
+    > change_turtle_color()
+    (255, 255, 0)
+
+    """
+    turtle_color_r = randint(0, 255)
+    turtle_color_g = randint(0, 255)
+    turtle_color_b = randint(0, 255)
+    print("color:", turtle_color_r, turtle_color_g, turtle_color_b)  # TODO delete
+
+    return turtle_color_r, turtle_color_g, turtle_color_b
+
+
+def visaulizeQuakes(dataFile, k=6, r=7):  # using values from book, k = clusters, r = repeat
 
     datadict = readFile(dataFile)
     quakeCentroids = createCentroids(k, datadict)
     clusters = createClusters(k, quakeCentroids, datadict, r)
 
+    eqDraw(k, datadict, clusters)
+
+    return None
+
+
+def eqDraw(k, eqDict, eqClusters):
+
     quakeT = turtle.Turtle()
+    turtle.colormode(255)
     quakeWin = turtle.Screen()
     quakeWin.bgpic("worldmap1800_900.gif")
     quakeWin.screensize(1800, 900)
@@ -129,25 +148,20 @@ def visaulizeQuakes(dataFile, k=6, r=7):  # using values from book
     quakeT.hideturtle()
     quakeT.up()
 
-    turtle_color_r = random.random()
-    turtle_color_g = random.random()
-    turtle_color_b = random.random()
-
-    colorlist = ["red", "black", "blue", "orange", "cyan", "yellow"]
+    # colorlist = turtle.color(turtle_color_r, turtle_color_g, turtle_color_b)
 
     for clusterIndex in range(k):
-        quakeT.color(colorlist[clusterIndex])
-        for akey in clusters[clusterIndex]:
+        turtle_color_r, turtle_color_g, turtle_color_b = change_turtle_color()
+        quakeT.color(turtle_color_r, turtle_color_g, turtle_color_b)
+        for akey in eq[clusterIndex]:
             lon = datadict[akey][0]
             print("lon", lon)
             lat = datadict[akey][1]
             print("lat", lat)
-            quakeT.goto(lon*wFactor, lat * hFactor)
+            quakeT.goto(lon * wFactor, lat * hFactor)
             quakeT.dot()
     #
     quakeWin.exitonclick()
 
-    return None
 
-
-visaulizeQuakes("Demo.txt")
+visaulizeQuakes("earthquakes.csv")
