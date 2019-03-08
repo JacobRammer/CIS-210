@@ -242,12 +242,8 @@ def eqDraw(k, eqDict, eqClusters):
     return None
 
 
-def main(filename="earthquakes.csv", k=6, r=7):
-    """program driver for 9-1
-
-    # k and r must be less than number of earthquakes
-
-    """
+def main(filename="earthquakes.csv", k=6, r=7):  # k and r must be less than number of earthquakes
+    """program driver for 9-1 """
 
     visaulizeQuakes(filename, k, r)
 
