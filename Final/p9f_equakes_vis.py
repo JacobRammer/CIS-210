@@ -4,7 +4,7 @@ CIS 210 W19 Project 9-1
 
 Author: [Jacob Rammer]
 
-Credits: [N/A]
+Credits: [Python Programming in Context]
 
 Graphing earthquakes with turtle graphics
 """
@@ -14,7 +14,16 @@ import turtle
 
 
 def readFile(fileName="earthquakes.csv"):  # TODO change for class file
-    """(str) -> dict"""
+    """(str) -> dict
+
+    Get the magnitude, longitude, and latitude from a file. Return the dictionary containing the information.
+
+    Doctest will not work due to file randomness
+
+    > readFile("earthquakes.csv")
+    {1: [-178.006, -30.5749, 5.4]}
+
+    """
 
     datadict = {}
     key = 0
@@ -31,9 +40,19 @@ def readFile(fileName="earthquakes.csv"):  # TODO change for class file
 
     return datadict
 
-# print(readFile("earthquakes.csv"))
 
 def euclidD(point1, point2):
+    """(list, list) -> float
+
+    Measure the distance between two points - the longitude / latitude value - using Euclidean distance. Return the
+    Euclidean distance calculation.
+
+    >>> euclidD([-178.006, -30.5749], [159.5408, -53.4107])
+    338.3183647866015
+    >>> euclidD([120.4262, 18.6004], [146.9481, 41.9336])
+    35.32491191567222
+
+    """
 
     total = 0
 
@@ -47,6 +66,19 @@ def euclidD(point1, point2):
 
 
 def createCentroids(k, datadict):
+    """(int, dict) -> list
+
+    Using the k-means cluster, choose k random points from datadict to be used as centroids centroids. Cannot use same
+    point twice. Return the list of centroids.
+
+    Doctest will not work due to randomness
+
+    > createCentroids(2, {1: [-178.006, -30.5749, 5.4], 2: [-72.6378, -33.664, 5.5]}
+    [[178.006, -30.5749, 5.4], 2: [-72.6378, -33.664, 5.5]]
+    > createCentroids(1, {1: [-178.006, -30.5749, 5.4], 2: [-72.6378, -33.664, 5.5], 3: [120.4262, 18.6004, 5.6]}
+    [[120.4262, 18.6004, 5.6]]
+
+    """
 
     centroids = []
     centroidCount = 0
@@ -63,9 +95,37 @@ def createCentroids(k, datadict):
 
 
 def createClusters(k, centroids, datadict, repeats):
+    """(int, list, dict, int) -> list
+
+    Create a list of clusters in relations to the closest centroid created in createCentroids. Distance is found using
+    the Euclidean distance calculations from euclidD. K is number of clusters, repeats is number of time to analyze data
+    Return the list of clusters.
+
+    Non working doc test due to file randomness
+
+    > createClusters(1, [[-178.006, -30.5749, 5.4]], {1: [-178.006, -30.5749, 5.4]}, 1) #doctest: +NORMALIZE_WHITESPACE
+    **** PASS 0 ****
+    CLUSTER
+    [-178.006, -30.5749, 5.4]
+    [[1]]
+
+    > createClusters(2, [[159.5408, -53.4107, 5.8], [-70.1267, -14.6844, 7.0]], {1: [-70.1267, -14.6844, 7.0], 2: [159.5408, -53.4107, 5.8]}, 2) #doctest: +NORMALIZE_WHITESPACE
+    **** PASS 0 ****
+    CLUSTER
+    [159.5408, -53.4107, 5.8]
+    CLUSTER
+    [-70.1267, -14.6844, 7.0]
+    **** PASS 1 ****
+    CLUSTER
+    [159.5408, -53.4107, 5.8]
+    CLUSTER
+    [-70.1267, -14.6844, 7.0]
+    [[2], [1]]
+
+    """
 
     for apass in range(repeats):
-        print("**** PASS", apass, "****")
+        # print("**** PASS", apass, "****")
         clusters = []
         for i in range(k):
             clusters.append([])
@@ -96,19 +156,24 @@ def createClusters(k, centroids, datadict, repeats):
 
                 centroids[clusterIndex] = sums
 
-        for c in clusters:
-            print("CLUSTER")
-            for key in c:
-                    print(datadict[key], end=" ")
-            print()
+        # comment out per project spec
+
+        # for c in clusters:
+        #     print("CLUSTER")
+        #     for key in c:
+        #             print(datadict[key], end=" ")
+        #     print()
 
     return clusters
 
 
-def change_turtle_color():
+def change_turtle_color():  # each cluster gets own color
     """() -> tuple
 
-    Generate random color decimal codes for turtle plotting. Returns the RGB decimal code tuple.
+    Generate random color decimal codes for turtle plotting. Auxiliary function created because there can be k clusters.
+    Returns the RGB decimal code tuple.
+
+    Doctest will not work due to randomness
 
     > change_turtle_color()
     (100, 150, 255)
@@ -119,12 +184,17 @@ def change_turtle_color():
     turtle_color_r = randint(0, 255)
     turtle_color_g = randint(0, 255)
     turtle_color_b = randint(0, 255)
-    print("color:", turtle_color_r, turtle_color_g, turtle_color_b)  # TODO delete
 
     return turtle_color_r, turtle_color_g, turtle_color_b
 
 
-def visaulizeQuakes(dataFile, k=6, r=7):  # using values from book, k = clusters, r = repeat
+def visaulizeQuakes(dataFile, k, r):
+    """(str, int, int) -> None
+
+    Create variable needed to plot earthquake date with Turtle. Create the data dictionary by calling readFile,
+    create centroids, and clusters by calling the appropriate functions. K = clusters, r = repeats. Returns none
+
+    """
 
     datadict = readFile(dataFile)
     quakeCentroids = createCentroids(k, datadict)
@@ -136,6 +206,12 @@ def visaulizeQuakes(dataFile, k=6, r=7):  # using values from book, k = clusters
 
 
 def eqDraw(k, eqDict, eqClusters):
+    """(int, dict, list) -> None
+
+    Initialize turtle objects. Plot earthquakes on the map using turtle by looping through the eqDict.
+    Their occurrence will be graphed by a dot on the map with a size of 1.8 times their magnitude. Returns none
+
+    """
 
     quakeT = turtle.Turtle()
     turtle.colormode(255)
@@ -144,8 +220,8 @@ def eqDraw(k, eqDict, eqClusters):
     quakeWin.bgpic("worldmap1800_900.gif")
     quakeWin.screensize(1800, 900)
 
-    wFactor = (quakeWin.screensize()[0] / 2) / 180
-    hFactor = (quakeWin.screensize()[1] / 2) / 90
+    wFactor = (quakeWin.screensize()[0] / 2) / 180  # coordinate calculations for longitude
+    hFactor = (quakeWin.screensize()[1] / 2) / 90  # coordinate calculations for latitude
 
     quakeT.hideturtle()
     quakeT.up()
@@ -160,8 +236,19 @@ def eqDraw(k, eqDict, eqClusters):
             mag = eqDict[akey][2]
             quakeT.goto(lon * wFactor, lat * hFactor)
             quakeT.dot(mag * 1.8)  # increases with magnitude
-    #
+
     quakeWin.exitonclick()
 
+    return None
 
-visaulizeQuakes("earthquakes.csv", 25)
+
+def main():
+    """program driver for 9-1"""
+
+    # k and v must be less than number of earthquakes
+    k = 6  # clusters
+    r = 7
+    visaulizeQuakes("earthquakes.csv", k, r)
+
+
+main()
