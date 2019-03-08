@@ -26,7 +26,8 @@ def readFile(fileName="earthquakes.csv"):  # TODO change for class file
             key += 1
             lat = line.split(",")[1]
             lon = line.split(",")[2]
-            datadict[key] = [float(lon), float(lat)]
+            mag = line.split(",")[4]
+            datadict[key] = [float(lon), float(lat), float(mag)]
 
     return datadict
 
@@ -101,7 +102,7 @@ def createClusters(k, centroids, datadict, repeats):
                     print(datadict[key], end=" ")
             print()
 
-        return clusters
+    return clusters
 
 
 def change_turtle_color():
@@ -129,7 +130,7 @@ def visaulizeQuakes(dataFile, k=6, r=7):  # using values from book, k = clusters
     quakeCentroids = createCentroids(k, datadict)
     clusters = createClusters(k, quakeCentroids, datadict, r)
 
-    eqDraw(k, datadict, clusters)
+    eqDraw(k, datadict, clusters)  # plotting points
 
     return None
 
@@ -138,6 +139,7 @@ def eqDraw(k, eqDict, eqClusters):
 
     quakeT = turtle.Turtle()
     turtle.colormode(255)
+    quakeT.speed("fastest")
     quakeWin = turtle.Screen()
     quakeWin.bgpic("worldmap1800_900.gif")
     quakeWin.screensize(1800, 900)
@@ -148,20 +150,18 @@ def eqDraw(k, eqDict, eqClusters):
     quakeT.hideturtle()
     quakeT.up()
 
-    # colorlist = turtle.color(turtle_color_r, turtle_color_g, turtle_color_b)
-
     for clusterIndex in range(k):
         turtle_color_r, turtle_color_g, turtle_color_b = change_turtle_color()
         quakeT.color(turtle_color_r, turtle_color_g, turtle_color_b)
-        for akey in eq[clusterIndex]:
-            lon = datadict[akey][0]
-            print("lon", lon)
-            lat = datadict[akey][1]
-            print("lat", lat)
+
+        for akey in eqClusters[clusterIndex]:
+            lon = eqDict[akey][0]
+            lat = eqDict[akey][1]
+            mag = eqDict[akey][2]
             quakeT.goto(lon * wFactor, lat * hFactor)
-            quakeT.dot()
+            quakeT.dot(mag * 1.8)  # increases with magnitude
     #
     quakeWin.exitonclick()
 
 
-visaulizeQuakes("earthquakes.csv")
+visaulizeQuakes("earthquakes.csv", 25)
