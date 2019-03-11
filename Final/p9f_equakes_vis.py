@@ -200,11 +200,12 @@ def dot_size(magnitude):
 
     """
 
-    if 5.0 >= magnitude >= 5.3:
+    # if 5.0 >= magnitude >= 5.3:
+    if 5.0 <= magnitude <= 5.3:
         dot_size = magnitude * 2
-    elif 5.4 >= magnitude >= 5.7:
+    elif 5.4 <= magnitude <= 5.7:
         dot_size = magnitude * 2.5
-    elif 5.8 >= magnitude >= 6:
+    elif 5.8 <= magnitude <= 6:
         dot_size = magnitude * 3
     elif magnitude > 6:
         dot_size = magnitude * 3.5
