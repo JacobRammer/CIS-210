@@ -10,10 +10,10 @@ Graphing earthquakes with turtle graphics
 """
 from math import sqrt
 from random import randint
-import turtle
+import turtle  # import this way for colormode
 
 
-def readFile(fileName="earthquakes.csv"):  # TODO change for class file
+def readFile(fileName="earthquakes.csv"):
     """(str) -> dict
 
     Get the magnitude, longitude, and latitude from a file. Return the dictionary containing the information.
@@ -73,11 +73,10 @@ def createCentroids(k, datadict):
 
     Doctest will not work due to randomness
 
-    > createCentroids(2, {1: [-178.006, -30.5749, 5.4], 2: [-72.6378, -33.664, 5.5]}
-    [[178.006, -30.5749, 5.4], 2: [-72.6378, -33.664, 5.5]]
-    > createCentroids(1, {1: [-178.006, -30.5749, 5.4], 2: [-72.6378, -33.664, 5.5], 3: [120.4262, 18.6004, 5.6]}
-    [[120.4262, 18.6004, 5.6]]
-
+    >>> createCentroids(1, {1: [-178.006, -30.5749, 5.4]})
+    [[-178.006, -30.5749, 5.4]]
+    >>> createCentroids(1, {1: [-72.6378, -33.664, 5.5]})
+    [[-72.6378, -33.664, 5.5]]
     """
 
     centroids = []
@@ -101,25 +100,11 @@ def createClusters(k, centroids, datadict, repeats):
     the Euclidean distance calculations from euclidD. K is number of clusters, repeats is number of time to analyze data
     Return the list of clusters.
 
-    Non working doc test due to file randomness
 
-    > createClusters(1, [[-178.006, -30.5749, 5.4]], {1: [-178.006, -30.5749, 5.4]}, 1) #doctest: +NORMALIZE_WHITESPACE
-    **** PASS 0 ****
-    CLUSTER
-    [-178.006, -30.5749, 5.4]
+    >>> createClusters(1, [[-178.006, -30.5749, 5.4]], {1: [-178.006, -30.5749, 5.4]}, 1) #doctest: +NORMALIZE_WHITESPACE
     [[1]]
 
-    > createClusters(2, [[159.5408, -53.4107, 5.8], [-70.1267, -14.6844, 7.0]], {1: [-70.1267, -14.6844, 7.0], 2: [159.5408, -53.4107, 5.8]}, 2) #doctest: +NORMALIZE_WHITESPACE
-    **** PASS 0 ****
-    CLUSTER
-    [159.5408, -53.4107, 5.8]
-    CLUSTER
-    [-70.1267, -14.6844, 7.0]
-    **** PASS 1 ****
-    CLUSTER
-    [159.5408, -53.4107, 5.8]
-    CLUSTER
-    [-70.1267, -14.6844, 7.0]
+    >>> createClusters(2, [[159.5408, -53.4107, 5.8], [-70.1267, -14.6844, 7.0]], {1: [-70.1267, -14.6844, 7.0], 2: [159.5408, -53.4107, 5.8]}, 2) #doctest: +NORMALIZE_WHITESPACE
     [[2], [1]]
 
     """
@@ -210,7 +195,7 @@ def dot_size(magnitude):
     elif magnitude > 6:
         dot_size = magnitude * 3.5
     else:
-        dot_size = magnitude * 1.8
+        dot_size = magnitude * 1.5
 
     return dot_size
 
@@ -220,6 +205,10 @@ def visaulizeQuakes(dataFile, k, r):
 
     Create variable needed to plot earthquake date with Turtle. Create the data dictionary by calling readFile,
     create centroids, and clusters by calling the appropriate functions. K = clusters, r = repeats. Returns none
+
+    Doctest will not work as function is based on file input
+
+    > visualizeQuakes("earthquakes.csv", 1, 1)
 
     """
 
@@ -237,6 +226,11 @@ def eqDraw(k, eqDict, eqClusters):
 
     Initialize turtle objects. Plot earthquakes on the map using turtle by looping through the eqDict.
     Their occurrence will be graphed by a dot on the map with a size of 1.8 times their magnitude. Returns none
+
+    Doctest will not work due to turtle graphics
+
+    > eqDraw("earthquakes.csv", {1: [-178.006, -30.5749, 5.4], [[2]])
+    turtle object
 
     """
 
@@ -272,7 +266,9 @@ def eqDraw(k, eqDict, eqClusters):
 def main(filename="earthquakes.csv", k=6, r=7):  # k and r must be less than number of earthquakes
     """program driver for 9-1 """
 
-    visaulizeQuakes(filename, k, r)
+    visaulizeQuakes(filename, k, r)  # tested with 1500 clusters and 1809 earthquakes
+
+    return None
 
 
 main()
