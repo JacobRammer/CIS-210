@@ -188,6 +188,32 @@ def change_turtle_color():  # each cluster gets own color
     return turtle_color_r, turtle_color_g, turtle_color_b
 
 
+def dot_size(magnitude):
+    """(number) -> number
+
+    Adjust the dot size depending on the magnitude. Return the dot size.
+
+    >>> dot_size(5.2)
+    10.4
+    >>> dot_size(9)
+    31.5
+
+    """
+
+    if 5.0 >= magnitude >= 5.3:
+        dot_size = magnitude * 2
+    elif 5.4 >= magnitude >= 5.7:
+        dot_size = magnitude * 2.5
+    elif 5.8 >= magnitude >= 6:
+        dot_size = magnitude * 3
+    elif magnitude > 6:
+        dot_size = magnitude * 3.5
+    else:
+        dot_size = magnitude * 1.8
+
+    return dot_size
+
+
 def visaulizeQuakes(dataFile, k, r):
     """(str, int, int) -> None
 
@@ -235,7 +261,7 @@ def eqDraw(k, eqDict, eqClusters):
             lat = eqDict[akey][1]
             mag = eqDict[akey][2]
             quakeT.goto(lon * wFactor, lat * hFactor)
-            quakeT.dot(mag * 1.8)  # increases with magnitude
+            quakeT.dot(dot_size(mag))  # increases with magnitude
 
     quakeWin.exitonclick()
 
