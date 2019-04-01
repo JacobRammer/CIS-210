@@ -110,7 +110,6 @@ def createClusters(k, centroids, datadict, repeats):
     """
 
     for apass in range(repeats):
-        # print("**** PASS", apass, "****")
         clusters = []
         for i in range(k):
             clusters.append([])
@@ -140,14 +139,6 @@ def createClusters(k, centroids, datadict, repeats):
                         sums[ind] = sums[ind] / clusterLen
 
                 centroids[clusterIndex] = sums
-
-        # comment out per project spec
-
-        # for c in clusters:
-        #     print("CLUSTER")
-        #     for key in c:
-        #             print(datadict[key], end=" ")
-        #     print()
 
     return clusters
 
@@ -185,7 +176,6 @@ def dot_size(magnitude):
 
     """
 
-    # if 5.0 >= magnitude >= 5.3:
     if 5.0 <= magnitude <= 5.3:
         dot_size = magnitude * 2
     elif 5.4 <= magnitude <= 5.7:
@@ -263,7 +253,7 @@ def eqDraw(k, eqDict, eqClusters):
     return None
 
 
-def main(filename="earthquakes.csv", k=6, r=7):  # k and r must be less than number of earthquakes
+def main(filename="earthquakes.csv", k=1500, r=7):  # k and r must be less than number of earthquakes
     """program driver for 9-1 """
 
     visaulizeQuakes(filename, k, r)  # tested with 1500 clusters and 1809 earthquakes
